@@ -1,0 +1,114 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "test API",
+    "version": "v1"
+  },
+  "paths": {
+    "/wallets/{wallet_id}/transactions": {
+      "post": {
+        "summary": "Create transaction",
+        "tags": [
+          "Transactions Area"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transaction[points]",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "transaction[debit_wallet_id]",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "transaction[timestamp]",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "wallet_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "wallet id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction create"
+          }
+        }
+      }
+    },
+    "/wallets": {
+      "post": {
+        "summary": "Create wallet",
+        "tags": [
+          "Wallets Area"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallet created"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all wallets",
+        "tags": [
+          "Wallets Area"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallet index"
+          }
+        }
+      }
+    },
+    "/wallets/{id}": {
+      "get": {
+        "summary": "Get wallet",
+        "tags": [
+          "Wallets Area"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "wallet id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallet show"
+          }
+        }
+      }
+    }
+  }
+}
