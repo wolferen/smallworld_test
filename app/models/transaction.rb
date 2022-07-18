@@ -6,7 +6,7 @@ class Transaction < ApplicationRecord
   validate :positive_balance, if: :processing?
 
   def positive_balance
-    errors.add(:wallet, 'insufficient funds') if wallet.balance <= points
+    errors.add(:wallet, 'insufficient funds') if wallet.balance < points
   end
 
   after_create :process_transaction, if: :processing?
@@ -17,6 +17,7 @@ class Transaction < ApplicationRecord
       transactions_list << transaction if transactions_list.pluck(:points).sum.to_i < points
     end
     calculate_transaction(transactions_list)
+    update(wallet_id: debit_wallet_id, status: 1)
   end
 
   def calculate_transaction(transactions_list)
@@ -33,6 +34,5 @@ class Transaction < ApplicationRecord
         end
       end
     end
-    update(wallet_id: debit_wallet_id, status: 1)
   end
 end
